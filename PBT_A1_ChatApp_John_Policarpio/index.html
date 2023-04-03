@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <h1>Chat App</h1>
+    <form method="post" action="/chat">
+      <label for="username">Username:</label>
+      <input type="text" name="username"><br><br>
+      <label for="roomName">Room Name:</label>
+      <input type="text" name="roomName"><br><br>
+      <input type="submit" value="Join Chat">
+    </form>
+    <hr>
+    <pre id="chat-log"></pre>
+    <script>
+      // Connect to chat room when the form is submitted
+      document.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const username = formData.get('username');
+        const roomName = formData.get('roomName');
+
+        const chatLog = document.querySelector('#chat-log');
+        chatLog.innerHTML = '';
+
+        const eventSource = new EventSource(`/chat?username=${username}&roomName=${roomName}`);
+        eventSource.onmessage = (event) => {
+          chatLog.innerText += event.data + '\n';
+        };
+      });
+    </script>
+  </body>
+</html>
