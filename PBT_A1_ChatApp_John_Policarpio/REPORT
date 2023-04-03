@@ -1,7 +1,5 @@
 IN TERMINAL
 
-*************************************
-
 SETUP:
 
 npm init -y 
@@ -10,7 +8,7 @@ npm install express amqplib readline
 
 *************************************
 
-TO RUN
+TO RUN:
 
 node chat.js <username> <roomName>
 
